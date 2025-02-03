@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubecoder
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: dockerimage
+  template:
+    metadata:
+      labels:
+        app: dockerimage
+    spec:
+      containers:
+        - name: dockerimage
+          image: luciadias/dockerimage:1.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URL
+              value: "mongodb+srv://admin:1234@diaslucia.zbby1dz.mongodb.net/?retryWrites=true&w=majority&appName=diaslucia"
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: login-service
+spec:
+  selector:
+    app: dockerimage
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
