@@ -20,7 +20,7 @@ Steps to install and run the project:
 
 1. Clone the project
    ```sh
-   git clone https://github.com/diaslucia/backend-ii
+   git clone https://github.com/diaslucia/backend-iii
    ```
 2. Open your current directory project
    ```sh
