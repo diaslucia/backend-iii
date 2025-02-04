@@ -24,7 +24,7 @@ Steps to install and run the project:
    ```
 2. Open your current directory project
    ```sh
-   cd backend-ii
+   cd backend-iii
    ```
 3. Install the libraries
    ```sh
