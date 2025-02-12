@@ -1,0 +1,118 @@
+paths:
+  /api/users:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      responses:
+        200:
+          description: Get all users successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        500:
+          description: Server internal error
+
+  /api/users/{uid}:
+    get:
+      summary: Get user by ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        200:
+          description: Get user successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: User not found
+        500:
+          description: Server internal error
+    put:
+      summary: Update user by ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: User updated successfully
+        400:
+          description: User not found
+        500:
+          description: Server internal error
+    delete:
+      summary: Remove user by ID
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        200:
+          description: User deleted successfully
+        400:
+          description: User not found
+        500:
+          description: Server internal error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: MongoDB generated ID
+        first_name:
+          type: string
+          description: User's first name
+        last_name:
+          type: string
+          description: User's last name
+        email:
+          type: string
+          description: User's email
+        password:
+          type: string
+          description: User's password
+        role:
+          type: string
+          description: User's role. It can be either user or admin
+        pets:
+          type: array
+          description: User's pets
+      example:
+        _id: "123456"
+        first_name: Lucia
+        last_name: Dias
+        email: luciadias.dev@gmail.com
+        password: 1234
+        role: admin
+        pets: []

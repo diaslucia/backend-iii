@@ -1,0 +1,206 @@
+paths:
+  /api/pets:
+    get:
+      summary: Get all pets
+      tags:
+        - Pets
+      responses:
+        200:
+          description: Get all pets successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pet"
+        500:
+          description: Server internal error
+    post:
+      summary: Create a new pet
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePet"
+      responses:
+        200:
+          description: Pet created successfully
+        400:
+          description: Invalid request body
+        500:
+          description: Server internal error
+
+  /api/pets/{pid}:
+    put:
+      summary: Update pet by ID
+      tags:
+        - Pets
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: Pet ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdatePet"
+      responses:
+        200:
+          description: Pet updated successfully
+        500:
+          description: Server internal error
+    delete:
+      summary: Remove pet by ID
+      tags:
+        - Pets
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: Pet ID
+      responses:
+        200:
+          description: Pet deleted successfully
+        500:
+          description: Server internal error
+
+  /api/users/withimage:
+    post:
+      summary: Create a new pet with image
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePetWithImage"
+      responses:
+        200:
+          description: Pet created successfully
+        400:
+          description: Invalid request body
+        500:
+          description: Server internal error
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: MongoDB generated ID
+        name:
+          type: string
+          description: Pet's name
+        species:
+          type: string
+          description: Pet's species
+        birthDate:
+          type: string
+          format: date
+          description: Pet's birthdate
+        adopted:
+          type: boolean
+          description: Is pet adopted?
+        owner:
+          type: string
+          description: Pet's owner ID
+        image:
+          type: string
+          description: Pet's picture URL
+      example:
+        _id: "123456"
+        name: "Spenser"
+        species: "Cat"
+        birthDate: "2015-09-19"
+        adopted: true
+        owner: "654321"
+        image: "https://example.com/image.jpg"
+    CreatePet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Pet's name
+        species:
+          type: string
+          description: Pet's species
+        birthDate:
+          type: string
+          format: date
+          description: Pet's birthdate
+      required:
+        - name
+        - species
+        - birthDate
+      example:
+        name: "Spenser"
+        species: "Cat"
+        birthDate: "2015-09-19"
+    CreatePetWithImage:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Pet's name
+        species:
+          type: string
+          description: Pet's species
+        birthDate:
+          type: string
+          format: date
+          description: Pet's birthdate
+        image:
+          type: string
+          description: Pet's picture URL
+      required:
+        - name
+        - species
+        - birthDate
+        - image
+      example:
+        name: "Spenser"
+        species: "Cat"
+        birthDate: "2015-09-19"
+        image: "https://example.com/image.jpg"
+    UpdatePet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Pet's name
+        species:
+          type: string
+          description: Pet's species
+        birthDate:
+          type: string
+          format: date
+          description: Pet's birthdate
+        adopted:
+          type: boolean
+          description: Is pet adopted?
+        owner:
+          type: string
+          description: Pet's owner ID
+        image:
+          type: string
+          format: uri
+          description: Pet's picture URL
+      example:
+        name: "Spenser"
+        species: "Cat"
+        birthDate: "2015-09-19"
+        adopted: true
+        owner: "654321"
+        image: "https://example.com/image.jpg"

@@ -1,0 +1,86 @@
+paths:
+  /api/adoptions:
+    get:
+      summary: Get all adoptions
+      tags:
+        - Adoptions
+      responses:
+        200:
+          description: Get all adoptions successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Adoption"
+        500:
+          description: Server internal error
+
+  /api/adoptions/{aid}:
+    get:
+      summary: Get adoption by ID
+      tags:
+        - Adoptions
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          schema:
+            type: string
+          description: Adoption ID
+      responses:
+        200:
+          description: Adoption found successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Adoption"
+        404:
+          description: Adoption not found
+        500:
+          description: Server internal error
+
+  /api/adoptions/{uid}/{pid}:
+    post:
+      summary: Create a new adoption
+      tags:
+        - Adoptions
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+          description: User ID
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: Pet ID
+      responses:
+        200:
+          description: Pet adopted successfully
+        400:
+          description: User or pet not found, or pet not avaliable
+        500:
+          description: Server internal error
+
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Adoption ID
+        owner:
+          type: string
+          description: ID of the user who adopted the pet
+        pet:
+          type: string
+          description: ID of the adopted pet
+      example:
+        _id: "abcdef123456"
+        owner: "123456789"
+        pet: "987654321"

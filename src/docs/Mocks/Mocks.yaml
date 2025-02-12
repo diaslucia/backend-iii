@@ -1,0 +1,141 @@
+paths:
+  /api/mocks/mockingpets:
+    get:
+      summary: Get a list of mocked pets
+      tags:
+        - Mocks
+      responses:
+        200:
+          description: Get a list of mocked pets successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pet"
+        500:
+          description: Server internal error
+
+  /api/mocks/mockingusers:
+    get:
+      summary: Get a list of mocked users
+      tags:
+        - Mocks
+      responses:
+        200:
+          description: Get a list of mocked users successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        500:
+          description: Server internal error
+
+  /api/mocks/generateData:
+    post:
+      summary: Generate mock data (users and pets)
+      tags:
+        - Mocks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                numUsers:
+                  type: integer
+                  description: Number of users to generate
+                numPets:
+                  type: integer
+                  description: Number of pets to generate
+              required:
+                - numUsers
+                - numPets
+      responses:
+        200:
+          description: Successfully generated mock data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  pets:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pet"
+        500:
+          description: Server internal error
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Pet ID
+        name:
+          type: string
+          description: Pet's name
+        specie:
+          type: string
+          description: Pet's species
+        adopted:
+          type: boolean
+          description: Is pet adopted?
+        birthDate:
+          type: string
+          format: date
+          description: Pet's birthdate
+        image:
+          type: string
+          description: Pet's image URL
+      example:
+        _id: "123456"
+        name: "Buddy"
+        specie: "Cat"
+        adopted: false
+        birthDate: "2020-03-15"
+        image: "https://via.placeholder.com/150"
+
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: User ID
+        first_name:
+          type: string
+          description: User's first name
+        last_name:
+          type: string
+          description: User's last name
+        email:
+          type: string
+          description: User's email address
+        password:
+          type: string
+          description: Hashed password of the user
+        role:
+          type: string
+          description: Role of the user (either "user" or "admin")
+        pets:
+          type: array
+          items:
+            type: string
+          description: List of pet IDs owned by the user
+      example:
+        _id: "654321"
+        first_name: "John"
+        last_name: "Doe"
+        email: "johndoe@example.com"
+        password: "$2a$10$O/c8h.Zf0z9hZzfnLGe7r.Dp6ez9EmPlEkOPxdV6TZXV5j5JlpkPu"
+        role: "user"
+        pets: []

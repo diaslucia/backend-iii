@@ -24,7 +24,8 @@ const updateUser = async (req, res, next) => {
 
 const deleteUser = async (req, res) => {
   const userId = req.params.uid;
-  await usersService.getUserById(userId);
+  const user = await usersService.getUserById(userId);
+  if (!user) return next(UserNotFound);
   res.send({ status: "success", message: "User deleted" });
 };
 
