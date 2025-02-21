@@ -16,6 +16,35 @@
 						"header": []
 					},
 					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Bruno\",\r\n    \"last_name\": \"Diaz\",\r\n    \"email\": \"batman@gmail.com\",\r\n    \"password\": \"arkham123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -27,6 +56,35 @@
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "createPet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Booker\",\r\n    \"specie\": \"Cat\",\r\n    \"birthDate\": \"2015-09-19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/pets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pets"
+							]
+						}
 					},
 					"response": []
 				}
@@ -76,6 +134,76 @@
 								"api",
 								"mocks",
 								"generateData"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Adoptions",
+			"item": [
+				{
+					"name": "createAdoption",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/adoptions?uid=67ae0fd0833dd938a87da8f5&pid=67ae0a27ccc67cbad81c27c7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"adoptions"
+							],
+							"query": [
+								{
+									"key": "uid",
+									"value": "67ae0fd0833dd938a87da8f5"
+								},
+								{
+									"key": "pid",
+									"value": "67ae0a27ccc67cbad81c27c7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAdoptions",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getAdoption",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/adoptions/:aid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"adoptions",
+								":aid"
+							],
+							"variable": [
+								{
+									"key": "aid",
+									"value": ""
+								}
 							]
 						}
 					},

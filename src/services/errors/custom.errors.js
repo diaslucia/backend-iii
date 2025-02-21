@@ -1,15 +1,12 @@
-class CustomError {
-  static createError({
-    title = "Error",
-    description = "Unknown",
-    message = "Try again",
-    status = "1",
-  }) {
-    const error = new Error(message);
-    error.title = title;
-    error.description = description;
-    error.status = status;
-    return error;
+class CustomError extends Error {
+  constructor({ description, message, status }) {
+    super(message);
+    this.description = description;
+    this.status = status;
+  }
+
+  static createError(data) {
+    return new CustomError(data);
   }
 }
 

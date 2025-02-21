@@ -39,3 +39,7 @@ Steps to install and run the project:
 ## ⚡ Swagger
 
 To access the documentation in Swagger, run the project and navigate to localhost:8080/apidocs in your browser.
+
+## 🐋 Docker hub
+
+Docker image can be found here: https://hub.docker.com/r/luciadias/dockerimage

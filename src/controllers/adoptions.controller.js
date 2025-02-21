@@ -3,6 +3,7 @@ import {
   PetNotAvaliable,
   PetNotFound,
   UserNotFound,
+  BadRequest,
 } from "../services/errors/errors.dictionary.js";
 import {
   adoptionsService,
@@ -17,19 +18,24 @@ const getAllAdoptions = async (req, res) => {
 
 const getAdoption = async (req, res, next) => {
   const adoptionId = req.params.aid;
+  if (!adoptionId) return next(BadRequest);
+
   const adoption = await adoptionsService.getBy({ _id: adoptionId });
   if (!adoption) return next(AdoptionNotFound);
+
   res.send({ status: "success", payload: adoption });
 };
 
 const createAdoption = async (req, res, next) => {
   const { uid, pid } = req.params;
 
+  if (!uid || !pid) return next(BadRequest);
+
   const user = await usersService.getUserById(uid);
   if (!user) return next(UserNotFound);
 
   const pet = await petsService.getBy({ _id: pid });
-  if (!pet) return PetNotFound();
+  if (!pet) return next(PetNotFound);
   if (pet.adopted) return next(PetNotAvaliable);
 
   user.pets.push(pet._id);

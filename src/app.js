@@ -1,10 +1,10 @@
 import express from "express";
-import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import compression from "express-compression";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
+import { connectMongoDB } from "./config/mongo.config.js";
 
 import usersRouter from "./routes/users.router.js";
 import petsRouter from "./routes/pets.router.js";
@@ -20,7 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 dotenv.config();
-mongoose.connect(process.env.MONGO_URL);
+connectMongoDB();
 app.use(express.json());
 app.use(cookieParser());
 app.use(errorHandler);
@@ -54,5 +54,15 @@ app.use("/api/adoptions", adoptionsRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/mocks", mocksRouter);
 app.use("/api/logger", loggerRouter);
+
+app.use((err, req, res, next) => {
+  console.error("Error:", err);
+  res.status(err.status || 500).json({
+    status: "Error",
+    title: err.title || "Error",
+    message: err.message || "Something went wrong",
+    description: err.description || "",
+  });
+});
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

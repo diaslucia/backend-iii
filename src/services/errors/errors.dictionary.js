@@ -1,32 +1,55 @@
 import CustomError from "./custom.errors.js";
 
-export const UserNotFound = CustomError.createError(
-  "User not found",
-  "User hasn't been found",
-  "User not found",
-  400
-);
-export const AdoptionNotFound = CustomError.createError(
-  "Adoption not found",
-  "Adoption hasn't been found",
-  "Adoption not found",
-  400
-);
-export const PetNotFound = CustomError.createError(
-  "Pet not found",
-  "Pet hasn't been found",
-  "Pet not found",
-  400
-);
-export const PetNotAvaliable = CustomError.createError(
-  "Pet is not avaliable",
-  "Pet is not avaliable for adoption",
-  "Pet is not avaliable",
-  400
-);
-export const BadRequest = CustomError.createError(
-  "Bad Request",
-  "Incomplete values",
-  "Bad Request",
-  400
-);
+export const UserNotFound = CustomError.createError({
+  description: "User hasn't been found",
+  message: "User not found",
+  status: 404,
+});
+
+export const UserAlreadyExists = CustomError.createError({
+  description: "There is an email associated with this account",
+  message: "User already registered",
+  status: 409,
+});
+
+export const UserDoesntExists = CustomError.createError({
+  description: "There is no account associated with this email",
+  message: "User doesn't exists",
+  status: 409,
+});
+
+export const EmailAlreadyRegister = CustomError.createError({
+  description: "There is an email associated with this account",
+  message: "Email already registered",
+  status: 409,
+});
+
+export const AdoptionNotFound = CustomError.createError({
+  description: "Adoption hasn't been found",
+  message: "Adoption not found",
+  status: 404,
+});
+
+export const PetNotFound = CustomError.createError({
+  description: "Pet hasn't been found",
+  message: "Pet not found",
+  status: 404,
+});
+
+export const PetNotAvaliable = CustomError.createError({
+  description: "Pet is not available for adoption",
+  message: "Pet is not available",
+  status: 409,
+});
+
+export const BadRequest = CustomError.createError({
+  description: "Incomplete values",
+  message: "Bad Request",
+  status: 400,
+});
+
+export const InvalidPassword = CustomError.createError({
+  description: "Invalid password",
+  message: "Invalid password",
+  status: 401,
+});
